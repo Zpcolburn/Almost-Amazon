@@ -5,19 +5,19 @@ import { getAuthors, getFavoriteAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (uid) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
 
   // TODO: BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
-    booksOnSale().then(showBooks);
+    booksOnSale(uid).then(showBooks);
   });
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
-    getBooks().then(showBooks);
+    getBooks(uid).then(showBooks);
   });
 
   // FIXME: STUDENTS Create an event listener for the Authors
@@ -25,12 +25,12 @@ const navigationEvents = () => {
   // 2. Convert the response to an array because that is what the makeAuthors function is expecting
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
-    getAuthors().then(showAuthors);
+    getAuthors(uid).then(showAuthors);
   });
 
   // TODO: Favorite Authors
   document.querySelector('#favorite-authors').addEventListener('click', () => {
-    getFavoriteAuthors().then(showAuthors);
+    getFavoriteAuthors(uid).then(showAuthors);
     console.warn('clicked');
   });
   // STRETCH: SEARCH
