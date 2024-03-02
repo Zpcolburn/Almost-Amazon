@@ -4,6 +4,9 @@ import addBookForm from '../components/forms/addBookForm';
 import { getAuthors, deleteSingleAuthor, getSingleAuthor } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import addAuthorForm from '../components/forms/addAuthorForm';
+import { getBookDetails, getAuthorDetails } from '../api/mergedData';
+import viewBook from '../pages/viewBook';
+import viewAuthors from '../pages/viewAuthor';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -34,7 +37,9 @@ const domEvents = () => {
     // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
       console.warn('VIEW BOOK', e.target.id);
-      console.warn(e.target.id.split('--'));
+      const [, firebaseKey] = e.target.id.split('--');
+
+      getBookDetails(firebaseKey).then(viewBook);
     }
 
     // FIXME: ADD CLICK EVENT FOR DELETING AN AUTHOR
@@ -48,6 +53,14 @@ const domEvents = () => {
           getAuthors().then(showAuthors);
         });
       }
+    }
+
+    // CLICK EVENT FOR VIEW AUTHOR DETAILS
+    if (e.target.id.includes('view-author-btn')) {
+      console.warn('VIEW AUTHOR', e.target.id);
+      const [, firebaseKey] = e.target.id.split('--');
+      // getAuthorDetails(firebaseKey).then(viewAuthor);
+      getAuthorDetails(firebaseKey).then(viewAuthors);
     }
 
     // FIXME: ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
